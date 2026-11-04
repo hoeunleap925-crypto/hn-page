@@ -96,7 +96,7 @@
     /* =========================================================
        4. Navbar
        ========================================================= */
-    /* Floating glass bar */
+    /* Floating dark glass bar, matching the hero and cards */
     .navbar {
       position: sticky;
       top: 14px;
@@ -112,14 +112,21 @@
       height: 64px;
       padding: 0 8px 0 10px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, .78);
+      background:
+        radial-gradient(300px 80px at 85% 0%, rgba(251, 191, 36, .14), transparent 70%),
+        rgba(11, 18, 32, .86);
       backdrop-filter: blur(14px) saturate(1.4);
       -webkit-backdrop-filter: blur(14px) saturate(1.4);
-      border: 1px solid rgba(226, 232, 240, .9);
-      box-shadow: 0 8px 30px -12px rgba(15, 23, 42, .2);
+      border: 1px solid rgba(255, 255, 255, .1);
+      box-shadow: 0 10px 30px -12px rgba(15, 23, 42, .45);
       transition: box-shadow .25s, background .25s;
     }
-    .navbar.scrolled .nav-inner { background: rgba(255, 255, 255, .94); box-shadow: 0 12px 34px -14px rgba(15, 23, 42, .35); }
+    .navbar.scrolled .nav-inner {
+      background:
+        radial-gradient(300px 80px at 85% 0%, rgba(251, 191, 36, .14), transparent 70%),
+        rgba(11, 18, 32, .96);
+      box-shadow: 0 14px 34px -14px rgba(15, 23, 42, .6);
+    }
 
     /* Brand */
     .brand { display: flex; align-items: center; gap: 10px; }
@@ -133,19 +140,20 @@
       font-family: var(--font-heading);
       font-weight: 800;
       font-size: 14px;
+      box-shadow: 0 0 0 2px #fbbf24;
     }
     .brand-badge::after {   /* small "live" dot */
       content: "";
       position: absolute;
-      right: 1px; bottom: 1px;
-      width: 11px; height: 11px;
+      right: -1px; bottom: -1px;
+      width: 12px; height: 12px;
       border-radius: 50%;
       background: #22c55e;
-      border: 2px solid var(--white);
+      border: 2px solid #0b1220;
     }
     .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
-    .brand-name { font-family: var(--font-heading); font-weight: 800; font-size: 17px; color: var(--ink); }
-    .brand-sub { font-size: 12px; font-weight: 500; color: var(--muted); }
+    .brand-name { font-family: var(--font-heading); font-weight: 800; font-size: 17px; color: var(--white); }
+    .brand-sub { font-size: 12px; font-weight: 500; color: #fbbf24; }
 
     /* Center links as a segmented pill */
     .nav-links {
@@ -154,18 +162,19 @@
       gap: 4px;
       padding: 5px;
       border-radius: 999px;
-      background: #f1f5f9;
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(255, 255, 255, .08);
     }
     .nav-links a {
       padding: 8px 18px;
       border-radius: 999px;
       font-size: 14px;
       font-weight: 600;
-      color: var(--muted);
-      transition: background .2s, color .2s, box-shadow .2s;
+      color: #cbd5e1;
+      transition: background .2s, color .2s;
     }
-    .nav-links a:hover { color: var(--ink); }
-    .nav-links a.active { background: var(--white); color: var(--ink); box-shadow: 0 1px 3px rgba(15, 23, 42, .12); }
+    .nav-links a:hover { color: var(--white); background: rgba(255, 255, 255, .06); }
+    .nav-links a.active { background: var(--white); color: var(--dark); }
 
     /* Right side */
     .nav-actions { display: flex; align-items: center; gap: 8px; }
@@ -173,12 +182,18 @@
       width: 42px; height: 42px;
       display: none; align-items: center; justify-content: center;
       border-radius: 50%;
-      color: var(--ink);
-      transition: background .2s;
+      color: #e2e8f0;
+      transition: background .2s, color .2s;
     }
-    .nav-icon:hover { background: #f1f5f9; }
+    .nav-icon:hover { background: rgba(255, 255, 255, .1); color: var(--white); }
     .nav-icon svg { width: 20px; height: 20px; }
-    .nav-cta { border-radius: 999px; padding: 11px 20px; }
+    .nav-cta {
+      border-radius: 999px;
+      padding: 11px 20px;
+      background: #fbbf24;
+      color: var(--dark);
+    }
+    .nav-cta:hover { background: #fcd34d; }
     .nav-cta .label-long { display: none; }
 
     /* Mobile menu button + panel */
@@ -187,8 +202,8 @@
       display: flex; align-items: center; justify-content: center;
       border: 0;
       border-radius: 50%;
-      background: #f1f5f9;
-      color: var(--ink);
+      background: rgba(255, 255, 255, .1);
+      color: var(--white);
       cursor: pointer;
     }
     .menu-btn svg { width: 22px; height: 22px; }
@@ -202,9 +217,9 @@
       left: 0; right: 0;
       padding: 10px;
       border-radius: 22px;
-      background: var(--white);
-      border: 1px solid var(--line);
-      box-shadow: 0 20px 40px -16px rgba(15, 23, 42, .3);
+      background: #0b1220;
+      border: 1px solid rgba(255, 255, 255, .1);
+      box-shadow: 0 20px 40px -16px rgba(15, 23, 42, .6);
     }
     .navbar.open .mobile-panel { display: grid; gap: 4px; }
     .mobile-panel a {
@@ -212,11 +227,11 @@
       padding: 14px 16px;
       border-radius: 14px;
       font-weight: 600;
-      color: var(--ink);
+      color: #e2e8f0;
     }
-    .mobile-panel a:hover, .mobile-panel a.active { background: #f1f5f9; }
-    .mobile-panel .btn { margin-top: 6px; justify-content: center; color: var(--white); }
-    .mobile-panel .btn:hover { background: var(--dark-2); }
+    .mobile-panel a:hover, .mobile-panel a.active { background: rgba(255, 255, 255, .08); color: var(--white); }
+    .mobile-panel .btn { margin-top: 6px; justify-content: center; background: #fbbf24; color: var(--dark); }
+    .mobile-panel .btn:hover { background: #fcd34d; }
     .nav-cta-desktop { display: none; }
 
     @media (min-width: 860px) {

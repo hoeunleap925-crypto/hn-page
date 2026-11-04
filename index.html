@@ -514,7 +514,21 @@
       color: var(--white);
     }
     .service svg { width: 18px; height: 18px; flex-shrink: 0; color: #fbbf24; }
-    .services + .steps { margin-top: 26px; padding-top: 26px; border-top: 1px solid rgba(255, 255, 255, .1); }
+    .services + .boost { margin-top: 26px; padding-top: 26px; border-top: 1px solid rgba(255, 255, 255, .1); }
+    .boost + .steps { margin-top: 26px; padding-top: 26px; border-top: 1px solid rgba(255, 255, 255, .1); }
+
+    /* TikTok Boost prices */
+    .boost-title { font-family: var(--font-khmer); font-size: 19px; font-weight: 700; line-height: 1.6; color: var(--white); letter-spacing: 0; }
+    .prices { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 10px; }
+    .price {
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      background: linear-gradient(90deg, rgba(251, 191, 36, .14), rgba(255, 255, 255, .05));
+      border: 1px solid rgba(251, 191, 36, .35);
+    }
+    .price-name { min-width: 0; font-weight: 600; color: var(--white); }
+    .price-tag { flex-shrink: 0; font-family: var(--font-heading); font-size: 22px; font-weight: 800; color: #fbbf24; white-space: nowrap; }
 
     .steps { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 14px; }
     .step { display: flex; align-items: center; gap: 14px; color: #e2e8f0; font-weight: 500; }
@@ -767,6 +781,14 @@
           <li class="service"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 001.5.86l11-6.5a1 1 0 000-1.72l-11-6.5A1 1 0 008 5.5z"/></svg><span>Post Video ធម្មតា</span></li>
           <li class="service"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 001.5.86l11-6.5a1 1 0 000-1.72l-11-6.5A1 1 0 008 5.5z"/></svg><span>Share Video ចូលផេកគ្រប់ប្រភេទ</span></li>
         </ul>
+
+        <div class="boost">
+          <h3 class="boost-title">មានទទួល Boost TikTok Khmer 100%៖</h3>
+          <ul class="prices">
+            <li class="price"><span class="price-name">400-1K Likes + 1.3K Views</span><strong class="price-tag">1.50$</strong></li>
+            <li class="price"><span class="price-name">800-2K Likes + 2.5K Views</span><strong class="price-tag">2.48$</strong></li>
+          </ul>
+        </div>
 
         <ol class="steps">
           <li class="step"><span class="step-num">1</span>Message us on Telegram</li>

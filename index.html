@@ -524,13 +524,71 @@
     @media (min-width: 640px) { .footer .container { flex-direction: row; justify-content: space-between; } }
 
     /* =========================================================
-       8. Reduced motion
+       8. Modern touches
        ========================================================= */
-    @media (prefers-reduced-motion: reduce) { .btn { transition: none; } .btn:hover { transform: none; } }
+    /* Soft color glow behind the whole page */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(700px 480px at 92% -5%, rgba(251, 191, 36, .16), transparent 60%),
+        radial-gradient(640px 520px at -5% 55%, rgba(99, 102, 241, .12), transparent 60%),
+        radial-gradient(600px 460px at 100% 105%, rgba(251, 191, 36, .10), transparent 60%);
+    }
+
+    /* Thin gold progress bar at the very top */
+    .progress {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      z-index: 100;
+      background: linear-gradient(90deg, #fbbf24, #f59e0b);
+      transform-origin: 0 50%;
+      transform: scaleX(0);
+      pointer-events: none;
+    }
+
+    /* Hero: fine light edge */
+    .hero-stage { box-shadow: 0 30px 60px -30px rgba(15, 23, 42, .55), inset 0 0 0 1px rgba(255, 255, 255, .07), inset 0 1px 0 rgba(255, 255, 255, .12); }
+
+    /* Smooth hover lift on cards and buttons */
+    .card { transition: transform .3s ease, box-shadow .3s ease; }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 34px 60px -28px rgba(15, 23, 42, .65); }
+    .btn { transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease; }
+    .btn:active { transform: translateY(0) scale(.98); }
+    .step { transition: transform .2s ease; }
+    .step:hover { transform: translateX(4px); }
+
+    /* Scroll reveal (only when JavaScript is running) */
+    .js .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s cubic-bezier(.2, .7, .2, 1); }
+    .js .reveal.in { opacity: 1; transform: none; }
+    .js .card.reveal.in:hover { transform: translateY(-4px); }
+    .js .reveal.d1 { transition-delay: .08s; }
+    .js .reveal.d2 { transition-delay: .16s; }
+
+    /* Dark footer that matches the rest */
+    .footer { background: var(--dark); border-top: 0; color: #94a3b8; }
+    .footer strong { color: var(--white); }
+    .footer-links a { transition: color .2s; }
+    .footer-links a:hover { color: #fbbf24; }
+
+    /* =========================================================
+       9. Reduced motion
+       ========================================================= */
+    @media (prefers-reduced-motion: reduce) {
+      .btn, .card, .step { transition: none; }
+      .btn:hover, .card:hover, .step:hover { transform: none; }
+      .js .reveal { opacity: 1; transform: none; transition: none; }
+    }
   </style>
 </head>
 
 <body>
+
+  <div class="progress" id="progress" aria-hidden="true"></div>
 
   <!-- ===================== Navbar ===================== -->
   <nav class="navbar" id="navbar">
@@ -746,6 +804,46 @@
           if (el) observer.observe(el);
         });
       }
+    })();
+  </script>
+
+  <script>
+    // Modern touches: scroll progress bar and fade-in on scroll
+    (function () {
+      var bar = document.getElementById('progress');
+      function progress() {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(window.scrollY / max, 1) : 0) + ')';
+      }
+      window.addEventListener('scroll', progress, { passive: true });
+      window.addEventListener('resize', progress);
+      progress();
+
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) return;
+
+      var items = document.querySelectorAll('.hero-stage, .section-head, #impressum, #advertising');
+      items.forEach(function (el, i) {
+        el.classList.add('reveal');
+        if (el.id === 'advertising') el.classList.add('d1');
+      });
+      document.documentElement.classList.add('js');
+
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) { show(entry.target); io.unobserve(entry.target); }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+
+      // Fade in, then drop the helper classes so hover effects stay snappy
+      function show(el) {
+        el.classList.add('in');
+        setTimeout(function () { el.classList.remove('reveal', 'in', 'd1', 'd2'); }, 1200);
+      }
+      items.forEach(function (el) { io.observe(el); });
+
+      // Safety net: never leave anything hidden
+      setTimeout(function () { items.forEach(function (el) { if (el.classList.contains('reveal')) show(el); }); }, 2500);
     })();
   </script>
 
